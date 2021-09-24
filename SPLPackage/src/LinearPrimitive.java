@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 // My english so bad wkwkwk, sekalian belajar yak wkwkw
 
 // Need to discuss
@@ -14,20 +12,24 @@ public class LinearPrimitive {
     
     public
         // We don't know what kind of matrix are needed. In worst cases scenario, double is the best one
-        ArrayList<ArrayList<Double>> doubleMatrix;
+        double[][] matrix = new double[100][100];
         //Construcor
-        LinearPrimitive(ArrayList<ArrayList<Double>> inputMatrix, int ncol, int nrow){
-            this.doubleMatrix = inputMatrix;
+        LinearPrimitive(double[][]mat, int ncol, int nrow){
             this.nrow = nrow;
             this.ncol = ncol;
+            for(int i=0;i<nrow;i++){
+                for(int j=0;j<ncol;j++){
+                    this.matrix[i][j]=mat[i][j];
+                }
+            }
         }
 
         //Swicth two Rowasd
         void switchRow(int rowfirst, int rowsecond){
             for(int i = 0; i < this.ncol; i ++){
-                double temp = this.doubleMatrix.get(rowfirst).get(i);
-                this.doubleMatrix.get(rowfirst).set(i, this.doubleMatrix.get(rowsecond).get(i));
-                this.doubleMatrix.get(rowsecond).set(i, temp);
+                double temp = this.matrix[rowfirst][i];
+                this.matrix[rowfirst][i]=this.matrix[rowsecond][i];
+                this.matrix[rowsecond][i]=temp;
             }
         }
         
@@ -35,9 +37,9 @@ public class LinearPrimitive {
         //Why we need this method?:v I forget it lol wkwkwk
         void switchColumn(int colfirst, int colsecond){
             for(int i = 0; i < this.nrow; i ++){
-                double temp = this.doubleMatrix.get(i).get(colfirst);
-                this.doubleMatrix.get(i).set(colfirst, this.doubleMatrix.get(colsecond).get(i));
-                this.doubleMatrix.get(i).set(colsecond, temp);
+                double temp = this.matrix[i][colfirst];
+                this.matrix[i][colfirst]=this.matrix[i][colsecond];
+                this.matrix[i][colsecond]=temp;
             }
         }
 
@@ -49,99 +51,77 @@ public class LinearPrimitive {
             for(int i = 0; i < this.ncol; i ++){
                 double newVal;
                 if(plus){
-                    newVal = this.doubleMatrix.get(rowsecond).get(i) + this.doubleMatrix.get(rowfirst).get(i) * multiplier;
+                    newVal=this.matrix[rowsecond][i] + this.matrix[rowfirst][i]*multiplier;
                 }else{
-                    newVal = this.doubleMatrix.get(rowsecond).get(i) - this.doubleMatrix.get(rowfirst).get(i) * multiplier;
+                    newVal=this.matrix[rowsecond][i] - this.matrix[rowfirst][i]*multiplier;
                 }
-                this.doubleMatrix.get(rowsecond).set(i, newVal);
+                this.matrix[rowsecond][i]=newVal;
             }
         }
 
         // Multiply a row with specified multiplier
         void multiplyRow(int row, double multiplier){
             for(int i = 0; i < this.ncol; i ++){
-                double newVal =this.doubleMatrix.get(row).get(i) * multiplier;
-                this.doubleMatrix.get(row).set(i, newVal);
+                this.matrix[row][i] *= multiplier;
             }
         }
         
         //Transpose Matrix
         void transposeMatrix(){
-            ArrayList<ArrayList<Double>> temp = new ArrayList<ArrayList<Double>>();
-
-            for(int i = 0; i < this.ncol; i++){
-                ArrayList<Double>in_temp = new ArrayList<Double>();
-                for(int j = 0; j < this.nrow; j++){
-                    in_temp.add(this.doubleMatrix.get(i).get(j));
+            for(int i=0;i<this.nrow;i++){
+                for(int j=i+1;j<this.ncol;j++){
+                    double temp=this.matrix[i][j];
+                    this.matrix[i][j]=this.matrix[j][i];
+                    this.matrix[j][i]=temp;
                 }
-                temp.add(in_temp);
             }
-
-            this.doubleMatrix = temp;
         }
 
         // Multiply matrix with a scalar
         void scalarMultiplier(double scalar){
             for(int i = 0; i < this.ncol; i ++){
                 for(int j = 0; j < this.nrow; j ++){
-                    double newVal = this.doubleMatrix.get(i).get(j) * scalar;
-                    this.doubleMatrix.get(i).set(j, newVal);
+                    this.matrix[i][j] *= scalar;
                 }
             }
         }
 
         //Overloading for scalarMultiplier -> for case if we want to multiply another matrix besides this.doubleMatrix
-        void scalarMultiplier(double scalar, ArrayList<ArrayList<Double>>inMatrix){
-            for(int i = 0; i < inMatrix.size(); i ++){
-                for(int j = 0; j < inMatrix.get(0).size() ; j ++){
-                    double newVal = inMatrix.get(i).get(j) * scalar;
-                    inMatrix.get(i).set(j, newVal);
+        double[][] scalarMultiplier(double scalar, double mat[][], int nrow, int ncol){
+            for(int i = 0; i < nrow; i ++){
+                for(int j = 0; j < ncol ; j ++){
+                    mat[i][j]*=scalar;
                 }
             }
+            return mat;
         }
 
         //Create cofactor -> For example, if we want to find cofactor 
-        ArrayList<ArrayList<Double>> createCofactor(int rowDelete, int colDelete){
-            ArrayList<ArrayList<Double>> cofactor = new ArrayList<ArrayList<Double>>();
+        double[][] createCofactor(int rowDelete, int colDelete){
+            double[][] cofactor = new double[100][100];
 
-            for(int i = 0; i < this.ncol; i ++){
-                ArrayList<Double> in_cofactor = new ArrayList<Double>();
-                if(i != rowDelete){
-                    for(int j = 0; j < this.nrow; j++){
-                        if(j != colDelete){
-                            in_cofactor.add(this.doubleMatrix.get(i).get(j));
-                        }
-                        else{
-                            continue;
-                        }
-                    }
-                    cofactor.add(in_cofactor);
+            int k=0,l=0;
+            for(int i=0;i<this.nrow;i++){
+                if(i==rowDelete)continue;
+                for(int j=0;j<this.ncol;j++){
+                    if(j==colDelete)continue;
+                    cofactor[k][l]=this.matrix[i][j];
+                    l++;
                 }
-                else{
-                    continue;
-                }
+                k++;
             }
-            
-            // Multiply with -1 
-            if(rowDelete + colDelete % 2 == 1 ){
-                scalarMultiplier(-1, cofactor);
+            if(rowDelete + colDelete % 2 ==1){
+                return scalarMultiplier(-1,cofactor,this.nrow-1,this.ncol-1);
+            }else{
+                return cofactor;
             }
-
-            return cofactor;
         }
-
-        // Case we want to fint determinant of this.doubleMatrix
+        // Case we want to fint determinant
         double determinantTwo(){
-            double firstVal = this.doubleMatrix.get(0).get(0) * this.doubleMatrix.get(1).get(1);
-            double secondVal = this.doubleMatrix.get(0).get(1) * this.doubleMatrix.get(1).get(0);
-            
-            return firstVal - secondVal;
+            return this.matrix[0][0]*this.matrix[1][1]-this.matrix[0][1]*this.matrix[1][0];
         }
 
-        double determinantTwo(ArrayList<ArrayList<Double>>inMatrix){
-            double firstVal = inMatrix.get(0).get(0) * inMatrix.get(1).get(1);
-            double secondVal = inMatrix.get(0).get(1) * inMatrix.get(1).get(0);
-            
-            return firstVal - secondVal;
+        double determinantTwo(double mat[][]){
+            return mat[0][0]*mat[1][1]-mat[0][1]*mat[1][0];
         }
 }   

@@ -1,28 +1,35 @@
 import java.util.Scanner;
 
-import java.util.*;
 
 public class Driver{
     public static void main(String[] args){
         Scanner in = new Scanner(System.in);
-        ArrayList<ArrayList<Double>> inputmatrix = new ArrayList<>();
+        double[][] inputmatrix = new double[100][100];
         int nrow=in.nextInt();
         int ncol=in.nextInt();
         for(int i=0;i<nrow;i++){
-            ArrayList<Double> temp = new ArrayList<>();
             for(int j=0;j<ncol;j++){
-                double x=in.nextDouble();
-                temp.add(j,x);
+                inputmatrix[i][j]=in.nextDouble();
             }
-            inputmatrix.add(i,temp);
         }
-        GaussJordanMatrix cek=new GaussJordanMatrix(inputmatrix, nrow, ncol);
+        System.out.println("\nGauss Matrix :");
+        GaussMatrix cek1=new GaussMatrix(inputmatrix, nrow, ncol);
         for(int i=0;i<nrow;i++){
             for(int j=0;j<ncol;j++){
-                System.out.print(cek.getJordanMatrix().get(i).get(j)+" ");
+                System.out.print(cek1.getGaussMatrix()[i][j]+" ");
             }
             System.out.println();
         }
-        System.out.println(cek.divVal);
+        System.out.println("div total = "+cek1.divVal);
+
+        System.out.println("\nGauss Jordan Matrix :");
+        GaussJordanMatrix cek2=new GaussJordanMatrix(inputmatrix, nrow, ncol);
+        for(int i=0;i<nrow;i++){
+            for(int j=0;j<ncol;j++){
+                System.out.print(cek2.getJordanMatrix()[i][j]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("div total = "+cek2.getDivVal());
     }
 }
