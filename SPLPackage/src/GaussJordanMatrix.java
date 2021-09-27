@@ -43,6 +43,10 @@ public class GaussJordanMatrix extends LinearPrimitive{
         return this.divVal;
     }
 
+    int getSwapCount(){
+        return this.swapCount;
+    }
+
     void formattingZero(){
         for(int i=0;i<super.nrow;i++){
             for(int j=0;j<super.ncol;j++){

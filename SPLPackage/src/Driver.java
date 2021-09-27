@@ -32,6 +32,11 @@ public class Driver{
         }
         System.out.println("div total = "+cek2.getDivVal());
 
+        double determinan=cek2.getDivVal();
+        if(cek2.getSwapCount()%2==1){
+            determinan=determinan*-1;
+        }
+
         double[][] res=new double[101][101];
         res=cek1.getResult(cek1.getGaussMatrix(), nrow, ncol);
         int nvariable=cek1.numParams();
