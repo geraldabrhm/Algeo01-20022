@@ -6,6 +6,7 @@ public class GaussJordanMatrix extends LinearPrimitive{
     double[][] jordan = new double[100][100];
     double divVal;
     int swapCount;
+    int nparamater=-1;;
     GaussJordanMatrix(double[][] inputMatrix, int nrow, int ncol){
         super(inputMatrix, ncol, nrow);
         this.transformToGaussJordan();
@@ -50,5 +51,17 @@ public class GaussJordanMatrix extends LinearPrimitive{
                 }
             }
         }
+    }
+
+    double[][] getResult(double[][] inputMat, int nrow, int ncol){
+        double[][] dummy=new double[100][100];
+        GaussMatrix Gauss=new GaussMatrix(dummy, nrow, ncol);
+        double[][] result=Gauss.getResult(inputMat, nrow, ncol);
+        this.nparamater=Gauss.numParams();
+        return result;
+    }
+
+    int numParams(){
+        return this.nparamater;
     }
 }

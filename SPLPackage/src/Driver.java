@@ -31,5 +31,27 @@ public class Driver{
             System.out.println();
         }
         System.out.println("div total = "+cek2.getDivVal());
+
+        double[][] res=new double[101][101];
+        res=cek1.getResult(cek1.getGaussMatrix(), nrow, ncol);
+        int nvariable=cek1.numParams();
+        System.out.println("\nEliminasi Gauss");
+        for(int i=0;i<ncol-1;i++){
+            for(int j=0;j<=nvariable;j++){
+                System.out.print(res[i][j]+" ");
+            }
+            System.out.println();
+        }
+
+        double[][] result=new double[101][101];
+        result=cek2.getResult(cek2.getJordanMatrix(), nrow, ncol);
+        int numvariable=cek2.numParams();
+        System.out.println("\nEliminasi Gauss Jordan");
+        for(int i=0;i<ncol-1;i++){
+            for(int j=0;j<=numvariable;j++){
+                System.out.print(result[i][j]+" ");
+            }
+            System.out.println();
+        }
     }
 }
