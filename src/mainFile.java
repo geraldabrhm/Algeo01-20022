@@ -5,7 +5,18 @@ import java.lang.Math;
 
 public class mainFile {
     public static Scanner scan = new Scanner(System.in);
-    
+
+    public static void test(){
+        double[][] ck = {{1.0}, {2.0}};
+        GaussJordanMatrix ckgauss = new GaussJordanMatrix(ck, 2, 1);
+
+        for(int i = 0; i < 2; i ++){
+            for(int j = 0; j < 1; j ++){
+                System.out.println(ckgauss.matrix[i][j]);
+            }
+        }
+    }
+
     public static int CheckInteger(int min, int max, String message){
         while (true){
             try{
@@ -68,6 +79,7 @@ public class mainFile {
 
     public static void main(String[] args) {
         scan.useLocale(Locale.US);
+        test();
 
         double[][] b_spl;
         double[][] problem;
