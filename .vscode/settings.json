@@ -1,9 +1,10 @@
 {
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "SPLPackage/lib/LinearPrimitive.jar",
-        "d:\\Kuliah\\Sem3\\Algeo01-13520022\\SPLPackage\\SPLPackage.jar"
-    ],
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "../lib/SPLPackage.jar"
+        ],
+    },
     "java.project.sourcePaths": [
         "src"
     ],
