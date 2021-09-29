@@ -1,6 +1,7 @@
 import java.text.NumberFormat.Style;
 import java.io.*;
 import java.util.*;
+import java.lang.Math;
 
 public class mainFile {
     public static Scanner scan = new Scanner(System.in);
@@ -54,6 +55,7 @@ public class mainFile {
         return a;
     }
 
+
     public static int whatInput(){
         System.out.println("Ada 2 metode input yang tersedia, silahkan pilih dengan mengetikkan nomor yang sesuai");
         System.out.println("Metode Input: ");
@@ -65,6 +67,9 @@ public class mainFile {
     }
 
     public static void main(String[] args) {
+        scan.useLocale(Locale.US);
+
+        double[][] b_spl;
         double[][] problem;
         int getservice = -1;
         int getmethod = -1;
@@ -126,39 +131,75 @@ public class mainFile {
                 System.out.println("Have a nice day :)");
                 System.exit(0);
         }
-        
+
         if(getinput == 1){
             switch(getservice){
+                // Asumsi masukan m n --> nrow ncol
                 case 1:
                     nrow = scan.nextInt();
                     ncol = scan.nextInt();
-                    double[][] copy1 = new double[nrow][ncol];
-
+                    problem = new double[nrow][ncol];
                     for(int i = 0; i < nrow; i ++){
                         for(int j = 0; j < ncol; j ++){
-                            copy1[i][j] = scan.nextDouble();
+                            problem[i][j] = scan.nextDouble();
                         }
                     }
+                    b_spl = new double[nrow][1];
+                    for(int k = 0; k < nrow; k ++){
+                        b_spl[k][0] = scan.nextDouble();
+                    }
 
-                    problem = copy1;
                     break;
 
                 case 2,3:
+            
                     nrow = scan.nextInt();
-                    double[][] copy2 = new double[nrow][nrow];
+                    problem = new double[nrow][nrow];
 
                     for(int i = 0; i < nrow; i ++){
                         for(int j = 0; j < nrow; j++){
-                            copy2[i][j] = scan.nextDouble();
+                            problem[i][j] = scan.nextDouble();
                         }
                     }
-                    problem = copy2;
+                    break;
+                
+                // Asumsi matriks tiap barisnya dimulai dari 1, x, x^2, sampai x^(nrow-1)  diikuti y
+                case 4:
+                    nrow = scan.nextInt();
+                    problem = new double[nrow][nrow + 1];
+
+                    for(int i = 0; i < nrow; i ++){
+                        double x = scan.nextDouble();
+                        double y = scan.nextDouble();
+                    
+                        for(int j = 0; j < (nrow + 1); j++){
+                            if(j != nrow){
+                                problem[i][j] = Math.pow(x, j);
+                                
+                            }else{
+                                problem[i][j] = y;
+                            }
+                        }
+                    }
+
+                    xtaksir = scan.nextDouble();
+                    break;
+                
+                case 5:
+                    
+                    nrow = scan.nextInt(); 
+                    ncol = scan.nextInt();                 
                     break;
             }
         }
         else{
-
         }
-
+        
     }
+    
 }
+
+/* 2 
+
+
+*/
