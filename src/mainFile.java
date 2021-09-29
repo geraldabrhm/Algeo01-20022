@@ -65,9 +65,12 @@ public class mainFile {
     }
 
     public static void main(String[] args) {
-        int getservice;
-        int getmethod;
-        int getinput;
+        double[][] problem;
+        int getservice = -1;
+        int getmethod = -1;
+        int getinput = -1;
+        int ncol , nrow;
+        double xtaksir;
         
         System.out.println();
         System.out.println("--------Welcome to Linear Algebra Solver--------- ");
@@ -123,7 +126,39 @@ public class mainFile {
                 System.out.println("Have a nice day :)");
                 System.exit(0);
         }
-
         
+        if(getinput == 1){
+            switch(getservice){
+                case 1:
+                    nrow = scan.nextInt();
+                    ncol = scan.nextInt();
+                    double[][] copy1 = new double[nrow][ncol];
+
+                    for(int i = 0; i < nrow; i ++){
+                        for(int j = 0; j < ncol; j ++){
+                            copy1[i][j] = scan.nextDouble();
+                        }
+                    }
+
+                    problem = copy1;
+                    break;
+
+                case 2,3:
+                    nrow = scan.nextInt();
+                    double[][] copy2 = new double[nrow][nrow];
+
+                    for(int i = 0; i < nrow; i ++){
+                        for(int j = 0; j < nrow; j++){
+                            copy2[i][j] = scan.nextDouble();
+                        }
+                    }
+                    problem = copy2;
+                    break;
+            }
+        }
+        else{
+
+        }
+
     }
 }
