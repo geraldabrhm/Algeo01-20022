@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 import java.lang.Math;
 
-public class mainFile {
+public class mainFile{
     public static Scanner scan = new Scanner(System.in);
     public static double[][] problem; // Matriks Augmented siap diolah
     public static int ncol , nrow;
@@ -184,7 +184,7 @@ public class mainFile {
     }
 
 
-    public static void outputFinal(int getoutput, String hasil, String filename){
+    public static void outputFinalString(int getoutput, String hasil, String filename){
         switch(getoutput){
             case 1:
                 System.out.println(hasil);
@@ -203,17 +203,62 @@ public class mainFile {
                 break;
         }
     }
+
+    public static void outputFinalMatrix(int getoutput, String filename){
+        switch(getoutput){
+            case 1:
+                for(int i = 0; i < nrow; i ++){
+                    for(int j = 0; j < nrow; j ++){
+                        if(j == nrow -1){
+                            System.out.println(solution[i][j]);
+                        }else{
+                            System.out.print(solution[i][j]);
+                            System.out.print(" ");
+                        }
+                    }
+                }
+                break;
+            case 2:
+                FileOutputStream fileOS = null;
+                BufferedOutputStream bufferOS = null;
+                DataOutputStream dataOS = null;
+                try{
+                    fileOS = new FileOutputStream("test/output/" + filename +"_output.txt");
+                    bufferOS = new BufferedOutputStream(fileOS);
+                    dataOS = new DataOutputStream(bufferOS);
+                    for(int i = 0; i < nrow; i ++){
+                        for(int j = 0; j < nrow; j ++){
+                            if(j == nrow -1){
+                                dataOS.writeDouble(solution[i][j]);
+                                dataOS.writeChars("\n");
+                            }else{  
+                                dataOS.writeDouble(solution[i][j]);
+                                dataOS.writeChars(" ");
+                            }
+                        }
+                    }
+                    System.out.println("Hasil dituliskan dalam file " + filename + "_output.txt");
+                }catch(IOException e){
+                    System.out.println("Terjadi error.");
+                    e.printStackTrace();
+                }
+        }
+    }
+
     public static void main(String[] args) {
         scan.useLocale(Locale.US);
 
-        String filename;
+        String solInstring = "";
+        String filename = "";
         double[][] b_spl;
         int getservice = -1;
         int getmethod = -1;
         int getinput = -1;
-        int getouput = -1;
+        int getoutput = -1;
         int ncol , nrow;
         double xtaksir;
+
+
         System.out.println();
         System.out.println("--------Welcome to Linear Algebra Solver--------- ");
         System.out.println();
@@ -364,6 +409,16 @@ public class mainFile {
                     break;
                 case 5:
                     break;
+            }
+
+            getoutput = whatOutput();
+            
+            switch(getservice){
+                case 1, 2, 4, 5:
+                    outputFinalString(getoutput, solInstring, filename);
+                    break;
+                case 3:
+                    outputFinalMatrix(getoutput, filename);
             }
         }
     }
