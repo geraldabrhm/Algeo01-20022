@@ -159,6 +159,7 @@ public class mainFile{
                     hasil=hasil+"Persamaan tidak memiliki solusi\n";
                 }
                 else{
+                    hasil="Hasil =\n";
                     int numparam=gauss.numParams();
                     for(int i=0;i<ncol-1;i++){
                         boolean isAllZero=true;
@@ -220,6 +221,7 @@ public class mainFile{
                     hasil=hasil+"Persamaan tidak memiliki solusi\n";
                 }
                 else{
+                    hasil="Hasil =\n";
                     int numparam=gaussjordan.numParams();
                     for(int i=0;i<ncol-1;i++){
                         boolean isAllZero=true;
@@ -271,7 +273,6 @@ public class mainFile{
                         hasil+="\n";
                     }
                 }
-                hasil+="Hasil=\n";
                 break;
             case 3:
                 break;
@@ -299,6 +300,11 @@ public class mainFile{
             case 2:
                 break;
         }
+    }
+
+    public static String Interpolasi(int getmethod){
+        String hasil="";
+        return hasil;
     }
 
 

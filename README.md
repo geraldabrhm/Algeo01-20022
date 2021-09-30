@@ -37,4 +37,5 @@ Untuk merun program dapat mengikuti petunjuk singkat berikut ini.
 4. Ikuti petunjuk yang ada dalam programnya untuk cara penggunaan.
 
 Beberapa catatan tentang program
-1. Program akan terus berjalan kecuali force stop (Ctrl + C) atau memilih opsi 6 di Service pertama.
+
+1. Program akan terus berjalan kecuali force stop (Ctrl + C) atau memilih opsi 6 di Service pertama. 
