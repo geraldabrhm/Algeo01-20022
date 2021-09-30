@@ -78,7 +78,74 @@ public class mainFile {
         return a;
     }
 
-    public static void inputFile(File input, int service){
+    public static void inputFile(File input, int service) throws FileNotFoundException{
+        Scanner scanfile = new Scanner(input);
+        ncol = 0;
+        nrow = 0;
+        switch(service){
+            case 1:
+                while(scanfile.hasNextLine()){
+                    nrow ++;
+                    Scanner colScan = new Scanner(scanfile.nextLine());
+                    while(colScan.hasNextDouble()){
+                        ncol ++;
+                        colScan.nextDouble();
+                    }
+                }
+                scanfile.close();
+                problem = new double[nrow][ncol];
+                scanfile = new Scanner(input);
+
+                for(int i = 0; i < nrow; i ++){
+                    for(int j = 0; j < ncol; i ++){
+                        problem[i][j] = scanfile.nextDouble();
+                    }
+                }
+                scanfile.close();
+                break;
+            
+            case 2, 3:
+                while(scanfile.hasNextLine()){
+                    nrow ++;
+                }
+                scanfile.close();
+
+                problem = new double[nrow][ncol];
+                scanfile = new Scanner(input);
+
+                for(int i = 0; i < nrow; i ++){
+                    for(int j = 0; j < nrow; i ++){
+                        problem[i][j] = scanfile.nextDouble();
+                    }
+                }
+                scanfile.close();
+                break;
+            case 4:
+                while(scanfile.hasNextLine()){
+                    nrow ++;
+                }
+                scanfile.close();
+                problem = new double[nrow][nrow + 1];
+                
+                scanfile = new Scanner(input);
+
+                for(int i = 0; i < nrow; i ++){
+                    double x1 = scanfile.nextDouble();
+                    double y1 = scanfile.nextDouble();
+                    for(int j = 0; j < (nrow + 1); j++){
+                        if(j != nrow){
+                            problem[i][j] = Math.pow(x1, j);
+                            
+                        }else{
+                            problem[i][j] = y1;
+                        }
+                    }
+                }
+                scanfile.close();
+                break;
+            case 5:
+                break;
+        }
     }
 
     public static void LinearGaussJordan(int getmethod){
@@ -171,16 +238,15 @@ public class mainFile {
                         nrow = scan.nextInt();
                         ncol = scan.nextInt();
                         problem = new double[nrow][ncol];
+                        b_spl = new double[nrow][1];
                         for(int i = 0; i < nrow; i ++){
                             for(int j = 0; j < ncol; j ++){
                                 problem[i][j] = scan.nextDouble();
+                                if(j == ncol - 1){
+                                    b_spl[i][0] = problem[i][j];
+                                }
                             }
                         }
-                        b_spl = new double[nrow][1];
-                        for(int k = 0; k < nrow; k ++){
-                            b_spl[k][0] = scan.nextDouble();
-                        }
-    
                         break;
     
                     case 2,3:
@@ -209,7 +275,6 @@ public class mainFile {
                                     
                                 }else{
                                     problem[i][j] = y1;
-                                    
                                 }
                             }
                         }
@@ -230,7 +295,7 @@ public class mainFile {
                 filename = scan.next();
                 
                 try{
-                    File infile = new File("test/" + filename);
+                    File infile = new File("test/input/" + filename);
                     
                     if(infile.createNewFile()){
                         System.out.println("Dibuat File baru, File masih kosong");
