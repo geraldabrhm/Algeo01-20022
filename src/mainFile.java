@@ -583,6 +583,7 @@ public class mainFile{
                     solInstring=Interpolasi(xtaksir);
                     break;
                 case 5:
+                //Gery
                     break;
             }
 
