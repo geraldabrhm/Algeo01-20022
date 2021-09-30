@@ -144,6 +144,7 @@ public class mainFile{
                 scanfile.close();
                 break;
             case 5:
+            //Gery
                 break;
         }
     }
@@ -275,8 +276,10 @@ public class mainFile{
                 }
                 break;
             case 3:
+                //Gery
                 break;
             case 4:
+                //Gery
                 break;
         }
         return hasil;
@@ -284,6 +287,7 @@ public class mainFile{
 
     public static String DeterminanMat(int getmethod){
         String hasil="";
+        //Gery
         switch(getmethod){
             case 1:
                 break;
@@ -294,6 +298,7 @@ public class mainFile{
     }
 
     public static void InverseMat(int getmethod){
+        //Gery
         switch(getmethod){
             case 1:
                 break;
@@ -490,6 +495,7 @@ public class mainFile{
                         break;
                     
                     case 5:
+                        //Gery
                         nrow = scan.nextInt(); 
                         ncol = scan.nextInt();                 
                         break;
