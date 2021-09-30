@@ -290,12 +290,17 @@ public class mainFile{
     }
 
     public static String DeterminanMat(int getmethod){
-        String hasil="";
+        String hasil="Hasil Determinan = ";
         //Gery
         switch(getmethod){
             case 1:
+                DeterminanOBE detByOBE=new DeterminanOBE();
+                double solDetOBE=detByOBE.calcDeterminanOBE(problem, nrow, nrow);
+                hasil+=solDetOBE;
                 break;
             case 2:
+                double solutionDet = inversMatriks.DetbyKofaktor(problem);
+                hasil+=solutionDet;
                 break;
         }
         return hasil;
@@ -305,8 +310,10 @@ public class mainFile{
         //Gery
         switch(getmethod){
             case 1:
+                solution = inversMatriks.inversebyGaussJordan(problem);
                 break;
             case 2:
+                solution = inversMatriks.inversebyKofaktor(problem);
                 break;
         }
     }
@@ -399,6 +406,10 @@ public class mainFile{
             case 1:
                 for(int i = 0; i < nrow; i ++){
                     for(int j = 0; j < nrow; j ++){
+                        if((solution[i][j] < 1e-14 ) && (solution[i][j] > -1e-14)){
+                            solution[i][j] = 0;    
+                        }
+
                         if(j == nrow -1){
                             System.out.println(solution[i][j]);
                         }else{
@@ -564,8 +575,20 @@ public class mainFile{
                     
                     case 5:
                         //Gery
-                        nrow = scan.nextInt(); 
-                        ncol = scan.nextInt();                 
+                        nrow = scan.nextInt(); // banyak data 
+                        ncol = scan.nextInt(); // banyak peubah                
+                        int i, j;
+                        double[] problem2 = new double[nrow];
+                        System.out.println("Masukan variabel bebas: ");
+                        for(i = 0; i < nrow; i++) {
+                            for(j = 0; j < ncol; j++) {
+                                problem[i][j] = scan.nextDouble();
+                            }
+                        }
+                        System.out.println("Masukan variabel terikat: ");
+                        for(j = 0; j < nrow; j++) {
+                            problem2[j] = scan.nextDouble();
+                        }
                         break;
                 }
             }
