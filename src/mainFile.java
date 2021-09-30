@@ -99,12 +99,15 @@ public class mainFile{
                 scanfile.close();
                 ncol /= nrow;
                 problem = new double[nrow][ncol];
-
+                b_spl = new double[nrow];
                 scanfile = new Scanner(input);
 
                 for(int i = 0; i < nrow; i ++){
                     for(int j = 0; j < ncol; j ++){
                         problem[i][j] = scanfile.nextDouble();
+                        if(j == ncol -1){
+                            b_spl[i] = problem[i][j];
+                        }
                     }
                 }
                 scanfile.close();
@@ -347,8 +350,6 @@ public class mainFile{
                         hasil += "SPL tidak memiliki solusi unik";
                     }
                 }
-                    
-
                 break;
         }
         return hasil;
