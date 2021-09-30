@@ -9,6 +9,7 @@ public class mainFile{
     public static int ncol , nrow;
     public static double[][] solution;
     public static int xfile = 0;
+    public static double xpred;
 
     public static int CheckInteger(int min, int max, String message){
         while (true){
@@ -125,6 +126,8 @@ public class mainFile{
                 scanfile.close();
                 break;
             case 4:
+                double rangemin = -1; 
+                double rangemax = -1;
                 while(scanfile.hasNextLine()){
                     nrow ++;
                     scanfile.nextLine();
@@ -137,6 +140,20 @@ public class mainFile{
                 for(int i = 0; i < nrow; i ++){
                     double x1 = scanfile.nextDouble();
                     double y1 = scanfile.nextDouble();
+
+                    if(i == 0){
+                        rangemin = x1;
+                        rangemax = x1;
+                    }else{
+                        if(x1 < rangemin){
+                            rangemin = x1;
+                        }
+                        
+                        if(x1 > rangemax){
+                            rangemax = x1;
+                        }
+                    }
+
                     for(int j = 0; j < (nrow + 1); j++){
                         if(j != nrow){
                             problem[i][j] = Math.pow(x1, j);
@@ -147,6 +164,8 @@ public class mainFile{
                     }
                 }
                 scanfile.close();
+                Random random = new Random();
+                double xpred = rangemin + (rangemax - rangemin) * random.nextDouble();
                 break;
             case 5:
             //Gery
@@ -318,7 +337,7 @@ public class mainFile{
         }
     }
 
-    public static String Interpolasi(double xpred){
+    public static String Interpolasi(){
         String hasil="Hasil Interpolasi =\ny = ";
         GaussJordanMatrix gaussjordan = new GaussJordanMatrix(problem, nrow, nrow+1);
         solution=gaussjordan.getResult(gaussjordan.getJordanMatrix(), nrow, nrow+1);
@@ -467,7 +486,6 @@ public class mainFile{
         int getmethod = -1;
         int getinput = -1;
         int getoutput = -1;
-        double xtaksir=-1;
 
 
         System.out.println();
@@ -574,7 +592,7 @@ public class mainFile{
                             }
                         }
                         
-                        xtaksir = scan.nextDouble();
+                        xpred = scan.nextDouble();
                         break;
                     
                     case 5:
@@ -593,6 +611,8 @@ public class mainFile{
                         for(j = 0; j < nrow; j++) {
                             problem2[j] = scan.nextDouble();
                         }
+                        System.out.print("Masukan x taksir: ");
+                        xpred = scan.nextDouble();
                         break;
                 }
             }
@@ -630,7 +650,7 @@ public class mainFile{
                     InverseMat(getmethod);
                     break;
                 case 4:
-                    solInstring=Interpolasi(xtaksir);
+                    solInstring=Interpolasi();
                     break;
                 case 5:
                 //Gery
@@ -646,6 +666,7 @@ public class mainFile{
                         break;
                     case 3:
                         outputFinalMatrix(getoutput, filename);
+                        break;
                 }
             }
         }
