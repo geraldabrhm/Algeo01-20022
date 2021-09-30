@@ -1,10 +1,8 @@
 {
-    "java.project.referencedLibraries": {
-        "include": [
-            "lib/**/*.jar",
-            "../lib/SPLPackage.jar"
-        ],
-    },
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "../lib/SPLPackage.jar"
+    ],
     "java.project.sourcePaths": [
         "src"
     ],

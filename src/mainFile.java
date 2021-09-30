@@ -8,6 +8,7 @@ public class mainFile{
     public static double[][] problem; // Matriks Augmented siap diolah
     public static int ncol , nrow;
     public static double[][] solution;
+    public static int xfile = 0;
 
     public static int CheckInteger(int min, int max, String message){
         while (true){
@@ -93,11 +94,13 @@ public class mainFile{
                     }
                 }
                 scanfile.close();
+                ncol /= nrow;
                 problem = new double[nrow][ncol];
+
                 scanfile = new Scanner(input);
 
                 for(int i = 0; i < nrow; i ++){
-                    for(int j = 0; j < ncol; i ++){
+                    for(int j = 0; j < ncol; j ++){
                         problem[i][j] = scanfile.nextDouble();
                     }
                 }
@@ -107,14 +110,15 @@ public class mainFile{
             case 2, 3:
                 while(scanfile.hasNextLine()){
                     nrow ++;
+                    scanfile.nextLine();
                 }
                 scanfile.close();
 
-                problem = new double[nrow][ncol];
+                problem = new double[nrow][nrow];
                 scanfile = new Scanner(input);
 
                 for(int i = 0; i < nrow; i ++){
-                    for(int j = 0; j < nrow; i ++){
+                    for(int j = 0; j < nrow; j ++){
                         problem[i][j] = scanfile.nextDouble();
                     }
                 }
@@ -123,6 +127,7 @@ public class mainFile{
             case 4:
                 while(scanfile.hasNextLine()){
                     nrow ++;
+                    scanfile.nextLine();
                 }
                 scanfile.close();
                 problem = new double[nrow][nrow + 1];
@@ -366,10 +371,20 @@ public class mainFile{
                 break;
             case 2:
                 try {
-                    FileWriter myWriter = new FileWriter("test/output/" + filename +"_output.txt");
-                    myWriter.write(hasil);
+                    String outName;
+                
+                    if(filename.length() == 0){
+                        String xcomp = String.valueOf(xfile);
+                        outName = "term" +  xcomp + "_output.txt";
+                        xfile ++;
+                    }else{
+                        outName = filename + "_output.txt";
+                    }
+                    FileWriter myWriter = new FileWriter("test/output/" + outName);
+                    myWriter.write(hasil); 
                     myWriter.close();
-                    System.out.println("Hasil dituliskan dalam file " + filename + "_output.txt");
+
+                    System.out.println("Hasil dituliskan dalam file " + outName);
                 } 
                 catch (IOException e) {
                     System.out.println("Terjadi error.");
@@ -394,25 +409,31 @@ public class mainFile{
                 }
                 break;
             case 2:
-                FileOutputStream fileOS = null;
-                BufferedOutputStream bufferOS = null;
-                DataOutputStream dataOS = null;
                 try{
-                    fileOS = new FileOutputStream("test/output/" + filename +"_output.txt");
-                    bufferOS = new BufferedOutputStream(fileOS);
-                    dataOS = new DataOutputStream(bufferOS);
+                    String outName;
+                
+                    if(filename.length() == 0){
+                        String xcomp = String.valueOf(xfile);
+                        outName = "term" +  xcomp + "_output.txt";
+                        xfile ++;
+                    }else{
+                        outName = filename + "_output.txt";
+                    }
+
+                    FileWriter myWriter = new FileWriter("test/output/" + outName);
                     for(int i = 0; i < nrow; i ++){
                         for(int j = 0; j < nrow; j ++){
+                            String doublevalue = Double.toString(solution[i][j]);
                             if(j == nrow -1){
-                                dataOS.writeDouble(solution[i][j]);
-                                dataOS.writeChars("\n");
+                                myWriter.write(doublevalue + "\n");
                             }else{  
-                                dataOS.writeDouble(solution[i][j]);
-                                dataOS.writeChars(" ");
+                                myWriter.write(doublevalue + " ");
                             }
                         }
                     }
-                    System.out.println("Hasil dituliskan dalam file " + filename + "_output.txt");
+
+                    myWriter.close();
+                    System.out.println("Hasil dituliskan dalam file " + outName);
                 }catch(IOException e){
                     System.out.println("Terjadi error.");
                     e.printStackTrace();
@@ -423,6 +444,7 @@ public class mainFile{
     public static void main(String[] args) {
         scan.useLocale(Locale.US);
 
+        boolean canSolve = true;
         String solInstring = "";
         String filename = "";
         double[][] b_spl;
@@ -558,6 +580,7 @@ public class mainFile{
                     
                     if(infile.createNewFile()){
                         System.out.println("Dibuat File baru, File masih kosong");
+                        canSolve = false;
                     }else{
                         System.out.println("File ada, akan dilakukan pembacaan");
                         inputFile(infile, getservice);
@@ -587,14 +610,16 @@ public class mainFile{
                     break;
             }
 
-            getoutput = whatOutput();
-            
-            switch(getservice){
-                case 1, 2, 4, 5:
-                    outputFinalString(getoutput, solInstring, filename);
-                    break;
-                case 3:
-                    outputFinalMatrix(getoutput, filename);
+            if(canSolve){
+                getoutput = whatOutput();
+                
+                switch(getservice){
+                    case 1, 2, 4, 5:
+                        outputFinalString(getoutput, solInstring, filename);
+                        break;
+                    case 3:
+                        outputFinalMatrix(getoutput, filename);
+                }
             }
         }
     }
