@@ -212,7 +212,6 @@ public class mainFile{
                         hasil+="\n";
                     }
                 }
-                hasil+="Hasil=\n";
                 break;
             case 2:
                 GaussJordanMatrix gaussjordan = new GaussJordanMatrix(problem, nrow, ncol);
@@ -307,8 +306,55 @@ public class mainFile{
         }
     }
 
-    public static String Interpolasi(int getmethod){
-        String hasil="";
+    public static String Interpolasi(double xpred){
+        String hasil="Hasil Interpolasi =\ny = ";
+        GaussJordanMatrix gaussjordan = new GaussJordanMatrix(problem, nrow, nrow+1);
+        solution=gaussjordan.getResult(gaussjordan.getJordanMatrix(), nrow, nrow+1);
+        int k;
+        if(solution[nrow-1][0]==1){
+            k=nrow-1;
+            hasil+="x^"+k;
+        }else if(solution[nrow-1][0]==-1){
+            k=nrow-1;
+            hasil+="-x^"+k;
+        }else{
+            k=nrow-1;
+            hasil+=solution[ncol-1][0]+"x^"+k;
+        }
+        for(int i=nrow-2;i>0;i--){
+            if(solution[i][0]==0)continue;
+            if(solution[i][0]>0){
+                if(solution[i][0]==1){
+                    hasil+=" + x^"+i;
+                }else{
+                    hasil+=" + "+solution[i][0]+"x^"+k;
+                }
+            }else{
+                if(solution[i][0]==-1){
+                    hasil+=" - x^"+i;
+                }else{
+                    double koef=solution[i][0]*(-1d);
+                    hasil+=" - "+koef+"x^"+k;
+                }
+            }
+        }
+        if(solution[0][0]>0){
+            hasil+=" + "+solution[0][0];
+        }else if(solution[0][0]!=0){
+            double koef=solution[0][0]*(-1d);
+            hasil+=" - "+koef;
+        }
+        hasil+="\n";
+
+        double yres=0;
+
+        for(int i=nrow-1;i>=0;i--){
+            yres+=solution[i][0]*Math.pow(xpred,i);
+        }
+        
+        hasil+="Hasil prediksi dari x = "+yres+"\n";
+
+
         return hasil;
     }
 
@@ -384,7 +430,7 @@ public class mainFile{
         int getmethod = -1;
         int getinput = -1;
         int getoutput = -1;
-        double xtaksir;
+        double xtaksir=-1;
 
 
         System.out.println();
@@ -534,7 +580,7 @@ public class mainFile{
                     InverseMat(getmethod);
                     break;
                 case 4:
-                    LinearEq(2);
+                    solInstring=Interpolasi(xtaksir);
                     break;
                 case 5:
                     break;
