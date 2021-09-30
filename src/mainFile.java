@@ -7,6 +7,7 @@ public class mainFile {
     public static Scanner scan = new Scanner(System.in);
     public static double[][] problem; // Matriks Augmented siap diolah
     public static int ncol , nrow;
+    public static double[][] solution;
 
     public static int CheckInteger(int min, int max, String message){
         while (true){
@@ -56,7 +57,6 @@ public class mainFile {
         
         return a;
     }
-
 
     public static int whatInput(){
         System.out.println("Ada 2 metode input yang tersedia, silahkan pilih dengan mengetikkan nomor yang sesuai");
@@ -148,20 +148,55 @@ public class mainFile {
         }
     }
 
-    public static void LinearGaussJordan(int getmethod){
+    public static void LinearEq(int getmethod){
         switch(getmethod){
             case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
                 break;
         }
     }
 
-    public static void finalOut(int getoutput, String hasil){
+    public static void DeterminanMat(int getmethod){
+        switch(getmethod){
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    public static void InverseMat(int getmethod){
+        switch(getmethod){
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+
+
+    public static void outputFinal(int getoutput, String hasil, String filename){
         switch(getoutput){
             case 1:
                 System.out.println(hasil);
+                break;
             case 2:
-            //Minta nama file
-            // Write
+                try {
+                    FileWriter myWriter = new FileWriter("test/output/" + filename +"_output.txt");
+                    myWriter.write(hasil);
+                    myWriter.close();
+                    System.out.println("Hasil dituliskan dalam file " + filename + "_output.txt");
+                } 
+                catch (IOException e) {
+                    System.out.println("Terjadi error.");
+                    e.printStackTrace();
+                }
+                break;
         }
     }
     public static void main(String[] args) {
@@ -289,13 +324,13 @@ public class mainFile {
                 }
             }
             else{
-                System.out.println("Untuk input dari file, akan diminta nama dari file dan akan dicari file tersebut di directory test.");
+                System.out.println("Untuk input dari file, akan diminta nama dari file (tanpa menyertakan ekstensi) dan akan dicari file tersebut di directory test.");
                 System.out.println("Apabila file tidak ditemukan, akan dibuat file kosong dan program diakhiri.");
                 System.out.print("Nama file: ");
                 filename = scan.next();
                 
                 try{
-                    File infile = new File("test/input/" + filename);
+                    File infile = new File("test/input/" + filename + ".txt");
                     
                     if(infile.createNewFile()){
                         System.out.println("Dibuat File baru, File masih kosong");
@@ -312,7 +347,19 @@ public class mainFile {
             
             switch(getservice){
                 case 1:
-                    LinearGaussJordan(getmethod);
+                    LinearEq(getmethod);
+                    break;
+                case 2:
+                    DeterminanMat(getmethod);
+                    break;
+                case 3:
+                    InverseMat(getmethod);
+                    break;
+                case 4:
+                    LinearEq(2);
+                    break;
+                case 5:
+                    break;
             }
         }
     }
