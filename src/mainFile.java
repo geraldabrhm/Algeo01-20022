@@ -8,6 +8,8 @@ public class mainFile{
     public static double[][] problem; // Matriks Augmented siap diolah
     public static int ncol , nrow;
     public static double[][] solution;
+    public static double[] problem2;
+    public static double[] b_spl;
     public static int xfile = 0;
 
     public static int CheckInteger(int min, int max, String message){
@@ -279,11 +281,55 @@ public class mainFile{
                     }
                 }
                 break;
-            case 3:
-                //Gery
-                break;
             case 4:
                 //Gery
+                double[] resultt;
+                hasil = "";
+                int m = 1;
+                double[][] matriksNew = new double[nrow][nrow];
+                if(nrow == (ncol - 1)) {
+                    for(int i = 0; i < nrow; i++) {
+                        for(int j = 0; j < nrow; j++) {
+                            matriksNew[i][j] = problem[i][j];
+                        }
+                    }
+                    if(inversMatriks.DetbyKofaktor(matriksNew) != 0) {
+                        resultt = SPLCrammer.Crammer(matriksNew, b_spl);
+                        for(int i = 0; i < nrow; i++) {
+                            m = i + 1;
+                            hasil += "x" + m + " = " + resultt[i] + "\n";
+                        }
+                    }
+                    else{
+                        hasil += "SPL tidak memiliki solusi unik";
+                    }
+                }
+                break;
+            case 3:
+                double[] resulttt;
+                hasil = "";
+                int mm = 1;
+                double[][] matriksNeww = new double[nrow][nrow];
+                if(nrow == (ncol - 1)) {
+                    for(int i = 0; i < nrow; i++) {
+                        for(int j = 0; j < nrow; j++) {
+                            matriksNeww[i][j] = problem[i][j];
+                        }
+                    }
+                    if(inversMatriks.DetbyKofaktor(matriksNeww) != 0) {
+                        double[][] tempo = inversMatriks.inversebyKofaktor(matriksNeww);
+                        resulttt = regresiLinear.multiplication(tempo, b_spl);
+                        for(int i = 0; i < nrow; i++) {
+                            mm = i + 1;
+                            hasil += "x" + mm + " = " + resulttt[i] + "\n";
+                        }
+                    }
+                    else{
+                        hasil += "SPL tidak memiliki solusi unik";
+                    }
+                }
+                    
+
                 break;
         }
         return hasil;
@@ -371,7 +417,58 @@ public class mainFile{
     }
 
     public static String RegresiSolver(double xpred){
-        String hasil = "";
+        String hasil = "Hasil regresi = \ny = ";
+        double[] hasilReg;
+        double resultRRR = 0;
+        hasilReg = regresiLinear.multiReg(problem, problem2);
+        int i;
+        int k=1;
+        if(hasilReg[0]>0){
+            if(hasilReg[0]==1){
+                hasil+="x"+k; 
+            }else{
+                hasil+=hasilReg[0]+"x"+k;
+            }
+        }else{
+            if(hasilReg[0]<0){
+                if(hasilReg[0]==-1){
+                    hasil+="-x"+k;
+                }else{
+                    double koef=hasilReg[0]*(-1d);
+                    hasil+=koef+"x"+k;
+                }
+            }
+        }
+        for(i = 1; i < hasilReg.length; i++) {
+            if(hasilReg[i]==0)continue;
+            k=i+1;
+            if(hasilReg[i]>0){
+                if(hasilReg[i]==1){
+                    hasil+=" + x"+k; 
+                }else{
+                    hasil+=" + "+hasilReg[i]+"x"+k;
+                }
+            }else{
+                if(hasilReg[i]<0){
+                    if(hasilReg[i]==-1){
+                        hasil+=" - x"+k;
+                    }else{
+                        double koef=hasilReg[i]*(-1d);
+                        hasil+=" - "+koef+"x"+k;
+                    }
+                }
+            }
+        }
+        for(i = 0; i < hasilReg.length; i++) {
+            if(i == 0) {
+                resultRRR += hasilReg[0];
+            }
+            else {
+                resultRRR += hasilReg[i] * xpred;
+            }
+        }
+        hasil+="\n";
+        hasil+="Hasil prediksi = "+resultRRR;
         return hasil;
     }
 
@@ -462,7 +559,6 @@ public class mainFile{
         boolean canSolve = true;
         String solInstring = "";
         String filename = "";
-        double[][] b_spl;
         int getservice = -1;
         int getmethod = -1;
         int getinput = -1;
@@ -533,12 +629,12 @@ public class mainFile{
                         nrow = scan.nextInt();
                         ncol = scan.nextInt();
                         problem = new double[nrow][ncol];
-                        b_spl = new double[nrow][1];
+                        b_spl=new double[nrow];
                         for(int i = 0; i < nrow; i ++){
                             for(int j = 0; j < ncol; j ++){
                                 problem[i][j] = scan.nextDouble();
                                 if(j == ncol - 1){
-                                    b_spl[i][0] = problem[i][j];
+                                    b_spl[i] = problem[i][j];
                                 }
                             }
                         }
@@ -582,7 +678,6 @@ public class mainFile{
                         nrow = scan.nextInt(); // banyak data 
                         ncol = scan.nextInt(); // banyak peubah                
                         int i, j;
-                        double[] problem2 = new double[nrow];
                         System.out.println("Masukan variabel bebas: ");
                         for(i = 0; i < nrow; i++) {
                             for(j = 0; j < ncol; j++) {
