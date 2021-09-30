@@ -170,7 +170,7 @@ public class mainFile{
                 }
                 scanfile.close();
                 Random random = new Random();
-                double xpred = rangemin + (rangemax - rangemin) * random.nextDouble();
+                xpred = rangemin + (rangemax - rangemin) * random.nextDouble();
                 break;
             case 5:
             //Gery
@@ -436,7 +436,7 @@ public class mainFile{
         return hasil;
     }
 
-    public static String RegresiSolver(double xpred){
+    public static String RegresiSolver(){
         String hasil = "Hasil regresi = \ny = ";
         double[] hasilReg;
         double resultRRR = 0;
@@ -454,8 +454,7 @@ public class mainFile{
                 if(hasilReg[0]==-1){
                     hasil+="-x"+k;
                 }else{
-                    double koef=hasilReg[0]*(-1d);
-                    hasil+=koef+"x"+k;
+                    hasil+=hasilReg[0]+"x"+k;
                 }
             }
         }
@@ -697,12 +696,14 @@ public class mainFile{
                         nrow = scan.nextInt(); // banyak data 
                         ncol = scan.nextInt(); // banyak peubah                
                         int i, j;
+                        problem = new double[nrow][ncol];
                         System.out.println("Masukan variabel bebas: ");
                         for(i = 0; i < nrow; i++) {
                             for(j = 0; j < ncol; j++) {
                                 problem[i][j] = scan.nextDouble();
                             }
                         }
+                        problem2 = new double[nrow];
                         System.out.println("Masukan variabel terikat: ");
                         for(j = 0; j < nrow; j++) {
                             problem2[j] = scan.nextDouble();
@@ -750,6 +751,7 @@ public class mainFile{
                     break;
                 case 5:
                 //Gery
+                    solInstring=RegresiSolver();
                     break;
             }
 
