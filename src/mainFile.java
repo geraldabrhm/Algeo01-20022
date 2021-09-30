@@ -5,17 +5,8 @@ import java.lang.Math;
 
 public class mainFile {
     public static Scanner scan = new Scanner(System.in);
-
-    public static void test(){
-        double[][] ck = {{1.0}, {2.0}};
-        GaussJordanMatrix ckgauss = new GaussJordanMatrix(ck, 2, 1);
-
-        for(int i = 0; i < 2; i ++){
-            for(int j = 0; j < 1; j ++){
-                System.out.println(ckgauss.matrix[i][j]);
-            }
-        }
-    }
+    public static double[][] problem; // Matriks Augmented siap diolah
+    public static int ncol , nrow;
 
     public static int CheckInteger(int min, int max, String message){
         while (true){
@@ -77,18 +68,46 @@ public class mainFile {
         return a;
     }
 
+    public static int whatOutput(){
+        System.out.println("Ada 2 metode output yang tersedia, silahkan pilih dengan mengetikkan nomor yang sesuai");
+        System.out.println("Metode Output: ");
+        System.out.println("1. Terminal");
+        System.out.println("2. File");
+        
+        int a = CheckInteger(1, 2, "Metode Output: ");
+        return a;
+    }
+
+    public static void inputFile(File input, int service){
+    }
+
+    public static void LinearGaussJordan(int getmethod){
+        switch(getmethod){
+            case 1:
+                break;
+        }
+    }
+
+    public static void finalOut(int getoutput, String hasil){
+        switch(getoutput){
+            case 1:
+                System.out.println(hasil);
+            case 2:
+            //Minta nama file
+            // Write
+        }
+    }
     public static void main(String[] args) {
         scan.useLocale(Locale.US);
-        test();
 
+        String filename;
         double[][] b_spl;
-        double[][] problem;
         int getservice = -1;
         int getmethod = -1;
         int getinput = -1;
+        int getouput = -1;
         int ncol , nrow;
         double xtaksir;
-        
         System.out.println();
         System.out.println("--------Welcome to Linear Algebra Solver--------- ");
         System.out.println();
@@ -98,120 +117,139 @@ public class mainFile {
         
         System.out.println("How? My dear customer, kamu bisa memilih 1 dari servis yang tersedia di bawah ini");
         System.out.println("Setelah itu, kamu harus melengkapi spesifikasinya, yaitu metode penyelesaian, \n metode input, dan input yang sesuai");
-        System.out.println();
 
-        System.out.println("Ada 6 servis yang tersedia, silahkan pilih dengan mengetikkan nomor yang sesuai");        
-        System.out.println("Servis tersedia: ");
-        System.out.println("1. Memecahkan Sistem Persamaan Linear");
-        System.out.println("2. Mencari Determinan Matriks");
-        System.out.println("3. Menentukan Balikan Matriks");
-        System.out.println("4. Memecahkan Interpolasi Polinom");
-        System.out.println("5. Memecahkan Regresi Linear Berganda");
-        System.out.println("6. Exit Program");
-        
-        System.out.println();
-        getservice = CheckInteger(1, 6, "Servis: ");
-        
-        switch(getservice){
-            case 1:
-                System.out.println("Selamat datang di Sistem Persamaan Linear");
-                getmethod = whatMethod(1);
-                getinput = whatInput();
-                break;
-            case 2:
-                System.out.println("Selamat datang di Determinan Matriks");
-                getmethod = whatMethod(2);
-                getinput = whatInput();
-                break;
-            case 3:
-                System.out.println("Selamat datang di Sistem Persamaan Linear");
-                getmethod = whatMethod(1);
-                getinput = whatInput();
-                break;
-            case 4:
-                System.out.println("Selamat datang di Interpolasi Polinom");
-                getinput = whatInput();
-                getmethod = -1;
-                break;
-            case 5:
-                System.out.println("Selamat datang di Regresi LInear Berganda");
-                getinput = whatInput();
-                getmethod = -1;
-                break;
-            case 6:
-                System.out.println("Terima kasih sudah menggunakan Linear Algebra Solver");
-                System.out.println("Have a nice day :)");
-                System.exit(0);
-        }
-
-        if(getinput == 1){
-            switch(getservice){
-                // Asumsi masukan m n --> nrow ncol
-                case 1:
-                    nrow = scan.nextInt();
-                    ncol = scan.nextInt();
-                    problem = new double[nrow][ncol];
-                    for(int i = 0; i < nrow; i ++){
-                        for(int j = 0; j < ncol; j ++){
-                            problem[i][j] = scan.nextDouble();
-                        }
-                    }
-                    b_spl = new double[nrow][1];
-                    for(int k = 0; k < nrow; k ++){
-                        b_spl[k][0] = scan.nextDouble();
-                    }
-
-                    break;
-
-                case 2,3:
+        while(true){
+            System.out.println();
+            System.out.println("Ada 6 servis yang tersedia, silahkan pilih dengan mengetikkan nomor yang sesuai");        
+            System.out.println("Servis tersedia: ");
+            System.out.println("1. Memecahkan Sistem Persamaan Linear");
+            System.out.println("2. Mencari Determinan Matriks");
+            System.out.println("3. Menentukan Balikan Matriks");
+            System.out.println("4. Memecahkan Interpolasi Polinom");
+            System.out.println("5. Memecahkan Regresi Linear Berganda");
+            System.out.println("6. Exit Program");
             
-                    nrow = scan.nextInt();
-                    problem = new double[nrow][nrow];
-
-                    for(int i = 0; i < nrow; i ++){
-                        for(int j = 0; j < nrow; j++){
-                            problem[i][j] = scan.nextDouble();
-                        }
-                    }
+            getservice = CheckInteger(1, 6, "Servis: ");
+            System.out.println();
+            
+            switch(getservice){
+                case 1:
+                    System.out.println("Selamat datang di Sistem Persamaan Linear");
+                    getmethod = whatMethod(1);
+                    getinput = whatInput();
                     break;
-                
-                // Asumsi matriks tiap barisnya dimulai dari 1, x, x^2, sampai x^(nrow-1)  diikuti y
+                case 2:
+                    System.out.println("Selamat datang di Determinan Matriks");
+                    getmethod = whatMethod(2);
+                    getinput = whatInput();
+                    break;
+                case 3:
+                    System.out.println("Selamat datang di Matriks Balikan");
+                    getmethod = whatMethod(3);
+                    getinput = whatInput();
+                    break;
                 case 4:
-                    nrow = scan.nextInt();
-                    problem = new double[nrow][nrow + 1];
-
-                    for(int i = 0; i < nrow; i ++){
-                        double x = scan.nextDouble();
-                        double y = scan.nextDouble();
-                    
-                        for(int j = 0; j < (nrow + 1); j++){
-                            if(j != nrow){
-                                problem[i][j] = Math.pow(x, j);
-                                
-                            }else{
-                                problem[i][j] = y;
+                    System.out.println("Selamat datang di Interpolasi Polinom");
+                    getinput = whatInput();
+                    getmethod = -1;
+                    break;
+                case 5:
+                    System.out.println("Selamat datang di Regresi LInear Berganda");
+                    getinput = whatInput();
+                    getmethod = -1;
+                    break;
+                case 6:
+                    System.out.println("Terima kasih sudah menggunakan Linear Algebra Solver");
+                    System.out.println("Have a nice day :)");
+                    System.exit(0);
+            }
+    
+            if(getinput == 1){
+                switch(getservice){
+                    // Asumsi masukan m n --> nrow ncol
+                    case 1:
+                        nrow = scan.nextInt();
+                        ncol = scan.nextInt();
+                        problem = new double[nrow][ncol];
+                        for(int i = 0; i < nrow; i ++){
+                            for(int j = 0; j < ncol; j ++){
+                                problem[i][j] = scan.nextDouble();
                             }
                         }
-                    }
-
-                    xtaksir = scan.nextDouble();
-                    break;
+                        b_spl = new double[nrow][1];
+                        for(int k = 0; k < nrow; k ++){
+                            b_spl[k][0] = scan.nextDouble();
+                        }
+    
+                        break;
+    
+                    case 2,3:
                 
-                case 5:
+                        nrow = scan.nextInt();
+                        problem = new double[nrow][nrow];
+    
+                        for(int i = 0; i < nrow; i ++){
+                            for(int j = 0; j < nrow; j++){
+                                problem[i][j] = scan.nextDouble();
+                            }
+                        }
+                        break;
                     
-                    nrow = scan.nextInt(); 
-                    ncol = scan.nextInt();                 
-                    break;
+                    // Asumsi matriks tiap barisnya dimulai dari 1, x, x^2, sampai x^(nrow-1)  diikuti y
+                    case 4:
+                        nrow = scan.nextInt();
+                        problem = new double[nrow][nrow + 1];
+    
+                        for(int i = 0; i < nrow; i ++){
+                            double x1 = scan.nextDouble();
+                            double y1 = scan.nextDouble();
+                            for(int j = 0; j < (nrow + 1); j++){
+                                if(j != nrow){
+                                    problem[i][j] = Math.pow(x1, j);
+                                    
+                                }else{
+                                    problem[i][j] = y1;
+                                    
+                                }
+                            }
+                        }
+                        
+                        xtaksir = scan.nextDouble();
+                        break;
+                    
+                    case 5:
+                        nrow = scan.nextInt(); 
+                        ncol = scan.nextInt();                 
+                        break;
+                }
+            }
+            else{
+                System.out.println("Untuk input dari file, akan diminta nama dari file dan akan dicari file tersebut di directory test.");
+                System.out.println("Apabila file tidak ditemukan, akan dibuat file kosong dan program diakhiri.");
+                System.out.print("Nama file: ");
+                filename = scan.next();
+                
+                try{
+                    File infile = new File("test/" + filename);
+                    
+                    if(infile.createNewFile()){
+                        System.out.println("Dibuat File baru, File masih kosong");
+                    }else{
+                        System.out.println("File ada, akan dilakukan pembacaan");
+                        inputFile(infile, getservice);
+                    }
+                }
+                catch (IOException e){
+                    System.out.println("Terjadi error.");
+                    e.printStackTrace();
+                }
+            }
+            
+            switch(getservice){
+                case 1:
+                    LinearGaussJordan(getmethod);
             }
         }
-        else{
-        }
-        
     }
-    
+
 }
-
-/* 2 
-
-
-*/
