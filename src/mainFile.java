@@ -148,30 +148,148 @@ public class mainFile{
         }
     }
 
-    public static void LinearEq(int getmethod){
+    public static String LinearEq(int getmethod){
+        String hasil="";
         switch(getmethod){
             case 1:
                 GaussMatrix gauss = new GaussMatrix(problem, nrow, ncol);
-                solution = gauss.getResult(problem, nrow, ncol);
+                solution = gauss.getResult(gauss.getGaussMatrix(), nrow, ncol);
+                hasil="";
+                if(gauss.numParams()<0){
+                    hasil=hasil+"Persamaan tidak memiliki solusi\n";
+                }
+                else{
+                    int numparam=gauss.numParams();
+                    for(int i=0;i<ncol-1;i++){
+                        boolean isAllZero=true;
+                        int nums=i+1;
+                        hasil+="x"+nums+" = ";
+                        for(int j=0;j<numparam;j++){
+                            if(solution[i][j]==0)continue;
+                            int k=j+1;
+                            if(isAllZero && solution[i][j]!=0){
+                                if(solution[i][j]==1){
+                                    hasil+="t"+k;
+                                }else if(solution[i][j]==-1){
+                                    hasil+="-t"+k;
+                                }else{
+                                    hasil+=solution[i][j]+"t"+k;
+                                }
+                                isAllZero=false;
+                            }else{
+                                if(solution[i][j]>0){
+                                    if(solution[i][j]==1){
+                                        hasil+=" + "+"t"+k;
+                                    }else{
+                                        hasil+=" + "+solution[i][j]+"t"+k;
+                                    }
+                                }else{
+                                    double kof=solution[i][j];
+                                    kof*=(-1d);
+                                    if(solution[i][j]==-1){
+                                        hasil+=" - "+"t"+k;
+                                    }else{
+                                        hasil+=" - "+kof+"t"+k;
+                                    }
+                                }
+                            }
+                        }
+                        if(isAllZero){
+                            hasil+=solution[i][numparam];
+                        }else{
+                            if(solution[i][numparam]!=0){
+                                if(solution[i][numparam]>0){
+                                    hasil+=" + "+solution[i][numparam];
+                                }else{
+                                    double kof=solution[i][numparam];
+                                    kof*=(-1d);
+                                    hasil+=" - "+kof;
+                                }
+                            }
+                        }
+                        hasil+="\n";
+                    }
+                }
+                hasil+="Hasil=\n";
                 break;
             case 2:
                 GaussJordanMatrix gaussjordan = new GaussJordanMatrix(problem, nrow, ncol);
-                solution = gaussjordan.getResult(problem, nrow, ncol);
+                solution = gaussjordan.getResult(gaussjordan.getJordanMatrix(), nrow, ncol);
+                hasil="";
+                if(gaussjordan.numParams()<0){
+                    hasil=hasil+"Persamaan tidak memiliki solusi\n";
+                }
+                else{
+                    int numparam=gaussjordan.numParams();
+                    for(int i=0;i<ncol-1;i++){
+                        boolean isAllZero=true;
+                        int nums=i+1;
+                        hasil+="x"+nums+" = ";
+                        for(int j=0;j<numparam;j++){
+                            if(solution[i][j]==0)continue;
+                            int k=j+1;
+                            if(isAllZero && solution[i][j]!=0){
+                                if(solution[i][j]==1){
+                                    hasil+="t"+k;
+                                }else if(solution[i][j]==-1){
+                                    hasil+="-t"+k;
+                                }else{
+                                    hasil+=solution[i][j]+"t"+k;
+                                }
+                                isAllZero=false;
+                            }else{
+                                if(solution[i][j]>0){
+                                    if(solution[i][j]==1){
+                                        hasil+=" + "+"t"+k;
+                                    }else{
+                                        hasil+=" + "+solution[i][j]+"t"+k;
+                                    }
+                                }else{
+                                    double kof=solution[i][j];
+                                    kof*=(-1d);
+                                    if(solution[i][j]==-1){
+                                        hasil+=" - "+"t"+k;
+                                    }else{
+                                        hasil+=" - "+kof+"t"+k;
+                                    }
+                                }
+                            }
+                        }
+                        if(isAllZero){
+                            hasil+=solution[i][numparam];
+                        }else{
+                            if(solution[i][numparam]!=0){
+                                if(solution[i][numparam]>0){
+                                    hasil+=" + "+solution[i][numparam];
+                                }else{
+                                    double kof=solution[i][numparam];
+                                    kof*=(-1d);
+                                    hasil+=" - "+kof;
+                                }
+                            }
+                        }
+                        hasil+="\n";
+                    }
+                }
+                hasil+="Hasil=\n";
                 break;
             case 3:
                 break;
             case 4:
                 break;
         }
+        return hasil;
     }
 
-    public static void DeterminanMat(int getmethod){
+    public static String DeterminanMat(int getmethod){
+        String hasil="";
         switch(getmethod){
             case 1:
                 break;
             case 2:
                 break;
         }
+        return hasil;
     }
 
     public static void InverseMat(int getmethod){
@@ -395,10 +513,10 @@ public class mainFile{
             
             switch(getservice){
                 case 1:
-                    LinearEq(getmethod);
+                    solInstring = LinearEq(getmethod);
                     break;
                 case 2:
-                    DeterminanMat(getmethod);
+                    solInstring = DeterminanMat(getmethod);
                     break;
                 case 3:
                     InverseMat(getmethod);
