@@ -151,8 +151,12 @@ public class mainFile {
     public static void LinearEq(int getmethod){
         switch(getmethod){
             case 1:
+                GaussMatrix gauss = new GaussMatrix(problem, nrow, ncol);
+                solution = gauss.getResult(problem, nrow, ncol);
                 break;
             case 2:
+                GaussJordanMatrix gaussjordan = new GaussJordanMatrix(problem, nrow, ncol);
+                solution = gaussjordan.getResult(problem, nrow, ncol);
                 break;
             case 3:
                 break;
