@@ -370,6 +370,10 @@ public class mainFile{
         return hasil;
     }
 
+    public static String RegresiSolver(double xpred){
+        String hasil = "";
+        return hasil;
+    }
 
     public static void outputFinalString(int getoutput, String hasil, String filename){
         switch(getoutput){
