@@ -255,7 +255,6 @@ public class mainFile{
         int getmethod = -1;
         int getinput = -1;
         int getoutput = -1;
-        int ncol , nrow;
         double xtaksir;
 
 
