@@ -47,7 +47,7 @@ Beberapa catatan tentang program
 7. Untuk masukan determinan dan invers dari file akan sama dengan terminal, dengan pengecualian akhir bisa bukan b
 8. Untuk masukan interpolasi dari terminal, input mengikuti pola yang terdapat pada spesifikasi, yang mana diawali sebuah integer n, diikuti xn dan yn, kemudian x yang akan ditaksir.
 9. Untuk masukan interpolasi dari file, input akan berupa baris yang terdiri dari pasangan x dan y. NIlai x yang akan ditaksir akan digenerate seara random dengan memperhatiakan batas atas dan batas bawah dari x yang diinput.
-10. (Bagian buat input regresi)
+10. Untuk masukan regresi dari terminal, input akan memprompting dua tahap masukan, pertama untuk variabel bebas (dependen), kedua (variabel terikat). User memasukan banyak baris (banyak data) dan kolom (banyak peubah x), lalu menginput variabel bebas dan terikat. User juga memasukkan xpredict untuk tiap variabel bebas xi..xn dimana n adalah banyak kolom
 11. Output dari setiap servis yang ditampilkan ke layar akan berupa string  dan double (untuk kasus matriks invers), sementara output yang dituliskan ke dalam file akan berupa string.
 12. Nama file output akan mengikuti nama file input dengan format {file_input}_output.txt. Apabila input berasal dari terminal, maka nama file output adalah temp{x}_output.txt dengan x diawali 0 dan akan terus bertambah.
 
