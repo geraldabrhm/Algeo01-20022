@@ -1,1 +1,7 @@
-Persamaan tidak memiliki solusi
+Hasil =
+x1 = 0.5
+x2 = 0.0
+x3 = 0.0
+x4 = 0.5
+x5 = 0.5
+x6 = 0.5
