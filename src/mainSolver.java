@@ -314,4 +314,57 @@ public class mainSolver {
         }
         return hasil;
     }
+
+    public static String RegresiSolver(){
+        String hasil = "Hasil regresi = \ny = ";
+        double[] hasilReg;
+        double resultRRR = 0;
+        hasilReg = regresiLinear.multiReg(mainFile.problem, mainFile.problem2);
+        int i;
+        boolean isStillZero=true;
+        if(hasilReg[0]!=0){
+            hasil+=hasilReg[0];
+            isStillZero=false;
+        }
+        for(i = 1; i < hasilReg.length; i++) {
+            if(hasilReg[i]==0)continue;
+            if(isStillZero){
+                if(hasilReg[i]==1){
+                    hasil+="x"+i; 
+                }else if(hasilReg[i]==-1){
+                    hasil+="-x"+i;
+                }else{
+                    hasil+=hasilReg[i]+"x"+i;
+                }
+                isStillZero=false;
+            }
+            else if(hasilReg[i]>0){
+                if(hasilReg[i]==1){
+                    hasil+=" + x"+i; 
+                }else{
+                    hasil+=" + "+hasilReg[i]+"x"+i;
+                }
+            }else{
+                if(hasilReg[i]<0){
+                    if(hasilReg[i]==-1){
+                        hasil+=" - x"+i;
+                    }else{
+                        double koef=hasilReg[i]*(-1d);
+                        hasil+=" - "+koef+"x"+i;
+                    }
+                }
+            }
+        }
+        for(i = 0; i < hasilReg.length; i++) {
+            if(i == 0) {
+                resultRRR += hasilReg[0];
+            }
+            else {
+                resultRRR += hasilReg[i] * mainFile.varxpred[i-1];
+            }
+        }
+        hasil+="\n";
+        hasil+="Hasil prediksi = "+resultRRR;
+        return hasil;
+    }
 }
