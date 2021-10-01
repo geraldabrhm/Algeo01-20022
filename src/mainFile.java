@@ -386,33 +386,49 @@ public class mainFile{
 
     public static String Interpolasi(){
         String hasil="Hasil Interpolasi =\ny = ";
-        GaussJordanMatrix gaussjordan = new GaussJordanMatrix(problem, nrow, nrow+1);
-        solution=gaussjordan.getResult(gaussjordan.getJordanMatrix(), nrow, nrow+1);
+        GaussMatrix gaussjordan = new GaussMatrix(problem, nrow, nrow+1);
+        solution=new double[100][100];
+        solution=gaussjordan.getResult(gaussjordan.getGaussMatrix(), nrow, nrow+1);
         int k;
+        boolean isStillZero=true;
+        System.out.println();
         if(solution[nrow-1][0]==1){
             k=nrow-1;
             hasil+="x^"+k;
+            isStillZero=false;
         }else if(solution[nrow-1][0]==-1){
             k=nrow-1;
             hasil+="-x^"+k;
-        }else{
+            isStillZero=false;
+        }else if(solution[nrow-1][0]!=0){
             k=nrow-1;
-            hasil+=solution[ncol-1][0]+"x^"+k;
+            hasil+=solution[nrow-1][0]+"x^"+k;
+            isStillZero=false;
         }
         for(int i=nrow-2;i>0;i--){
             if(solution[i][0]==0)continue;
-            if(solution[i][0]>0){
+            if(isStillZero){
+                if(solution[i][0]==1){
+                    hasil+="x^"+i;
+                }else if(solution[i][0]==-1){
+                    hasil+="-x^"+i;
+                }else{
+                    hasil+=solution[i][0]+"x^"+i;
+                }
+                isStillZero=false;
+            }
+            else if(solution[i][0]>0){
                 if(solution[i][0]==1){
                     hasil+=" + x^"+i;
                 }else{
-                    hasil+=" + "+solution[i][0]+"x^"+k;
+                    hasil+=" + "+solution[i][0]+"x^"+i;
                 }
             }else{
                 if(solution[i][0]==-1){
                     hasil+=" - x^"+i;
                 }else{
                     double koef=solution[i][0]*(-1d);
-                    hasil+=" - "+koef+"x^"+k;
+                    hasil+=" - "+koef+"x^"+i;
                 }
             }
         }
@@ -443,12 +459,14 @@ public class mainFile{
         hasilReg = regresiLinear.multiReg(problem, problem2);
         int i;
         int k=1;
+        boolean isStillZero=true;
         if(hasilReg[0]>0){
             if(hasilReg[0]==1){
                 hasil+="x"+k; 
             }else{
                 hasil+=hasilReg[0]+"x"+k;
             }
+            isStillZero=false;
         }else{
             if(hasilReg[0]<0){
                 if(hasilReg[0]==-1){
@@ -456,12 +474,23 @@ public class mainFile{
                 }else{
                     hasil+=hasilReg[0]+"x"+k;
                 }
+                isStillZero=false;
             }
         }
         for(i = 1; i < hasilReg.length; i++) {
             if(hasilReg[i]==0)continue;
             k=i+1;
-            if(hasilReg[i]>0){
+            if(isStillZero){
+                if(hasilReg[i]==1){
+                    hasil+="x"+k; 
+                }else if(hasilReg[i]==-1){
+                    hasil+="-x"+k;
+                }else{
+                    hasil+=hasilReg[i]+"x"+k;
+                }
+                isStillZero=false;
+            }
+            else if(hasilReg[i]>0){
                 if(hasilReg[i]==1){
                     hasil+=" + x"+k; 
                 }else{
