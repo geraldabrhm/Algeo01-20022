@@ -27,14 +27,12 @@ Struktur repository dibuat dengan mengikuti panduan yang diberikan dengan sediki
 
 ## How to Use
 
-Kami sangat menyarankan untuk mencoba merun program di vscode yang telah dilengkapi dengan ekstensi Java. Hal ini karena kami mendevelop program ini menggunakan vscode dan terdapat beberapa hal seperti inputSourcePath java yang kami atur menggunakan file json di folder .vscode.
-
-Untuk merun program dapat mengikuti petunjuk singkat berikut ini.
-
-1. Buka *mainFile.java* di folder src.
-2. Klik kanan di editor atau arahkan kursor ke kanan atas, ke logo berbentuk segitiga.
-3. Pilih opsi run Java atau debug Java
-4. Ikuti petunjuk yang ada dalam programnya untuk cara penggunaan.
+1)	Pertama pengguna akan diberikan menu utama (6 pilihan menu, pengguna bisa memilih SPL, determinan, matriks balikan, interpolasi polinom, regresi linear berganda, atau keluar dari program)
+2)	Jika pengguna memilih SPL misalnya, pengguna akan kembali diprompt untuk memlih metode yang ingin dipakai
+3)	Program kemudian menampilkan dua opsi input, dapat berupa file atau masukan dari keyboard
+4)	Program akan memprompting user untuk memasukan baris, kolom, dan matriks dengan format tergantung dengan apa yang dicari dan dengan metode apa mencarinya
+5)	User akan diberi 2 pilihan untuk menerima output dari terminal atau ke file
+6)  Setelah selesai pada aksi sekuensial tertentu, pengguna akan kembali menu utama kembali hingga akhirnya pengguna  keluar dari program dengan memasukan nomor 6 pada servis 
 
 Beberapa catatan tentang program
 
@@ -48,6 +46,6 @@ Beberapa catatan tentang program
 8. Untuk masukan interpolasi dari terminal, input mengikuti pola yang terdapat pada spesifikasi, yang mana diawali sebuah integer n, diikuti xn dan yn, kemudian x yang akan ditaksir.
 9. Untuk masukan interpolasi dari file, input akan berupa baris yang terdiri dari pasangan x dan y. NIlai x yang akan ditaksir akan digenerate seara random dengan memperhatiakan batas atas dan batas bawah dari x yang diinput.
 10. Untuk masukan regresi dari terminal, input akan memprompting dua tahap masukan, pertama untuk variabel bebas (dependen), kedua (variabel terikat). User memasukan banyak baris (banyak data) dan kolom (banyak peubah x), lalu menginput variabel bebas dan terikat. User juga memasukkan xpredict untuk tiap variabel bebas xi..xn dimana n adalah banyak kolom
-11. Output dari setiap servis yang ditampilkan ke layar akan berupa string  dan double (untuk kasus matriks invers), sementara output yang dituliskan ke dalam file akan berupa string.
-12. Nama file output akan mengikuti nama file input dengan format {file_input}_output.txt. Apabila input berasal dari terminal, maka nama file output adalah temp{x}_output.txt dengan x diawali 0 dan akan terus bertambah.
-
+11. Untuk masukan regresi dari file, format sama dengan masukan dari terminal
+12. Output dari setiap servis yang ditampilkan ke layar akan berupa string  dan double (untuk kasus matriks invers), sementara output yang dituliskan ke dalam file akan berupa string.
+13. Nama file output akan mengikuti nama file input dengan format {file_input}_output.txt. Apabila input berasal dari terminal, maka nama file output adalah temp{x}_output.txt dengan x diawali 0 dan akan terus bertambah.
