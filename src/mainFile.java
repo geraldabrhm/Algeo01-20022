@@ -11,7 +11,8 @@ public class mainFile{
     public static double[] b_spl;
     public static int xfile = 0;
     public static double xpred;
-
+    public static double[] varxpred;
+    public static boolean isInversexist=true;;
 
     public static void main(String[] args) {
         scan.useLocale(Locale.US);
@@ -23,7 +24,6 @@ public class mainFile{
         int getmethod = -1;
         int getinput = -1;
         int getoutput = -1;
-
 
         System.out.println();
         System.out.println("--------Welcome to Linear Algebra Solver--------- ");
@@ -70,7 +70,6 @@ public class mainFile{
                     System.out.println("Have a nice day :)");
                     System.exit(0);
             }
-    
             if(getinput == 1){
                 switch(getservice){
                     // Asumsi masukan m n --> nrow ncol
@@ -88,9 +87,7 @@ public class mainFile{
                             }
                         }
                         break;
-    
                     case 2,3:
-                
                         nrow = scan.nextInt();
                         problem = new double[nrow][nrow];
     
@@ -100,7 +97,6 @@ public class mainFile{
                             }
                         }
                         break;
-                    
                     // Asumsi matriks tiap barisnya dimulai dari 1, x, x^2, sampai x^(nrow-1)  diikuti y
                     case 4:
                         nrow = scan.nextInt();
@@ -121,24 +117,28 @@ public class mainFile{
                         
                         xpred = scan.nextDouble();
                         break;
-                    
                     case 5:
                         //Gery
                         nrow = scan.nextInt(); // banyak data 
                         ncol = scan.nextInt(); // banyak peubah                
                         int i, j;
+                        problem = new double[nrow][ncol];
                         System.out.println("Masukan variabel bebas: ");
                         for(i = 0; i < nrow; i++) {
                             for(j = 0; j < ncol; j++) {
                                 problem[i][j] = scan.nextDouble();
                             }
                         }
+                        problem2 = new double[nrow];
                         System.out.println("Masukan variabel terikat: ");
                         for(j = 0; j < nrow; j++) {
                             problem2[j] = scan.nextDouble();
                         }
-                        System.out.print("Masukan x taksir: ");
-                        xpred = scan.nextDouble();
+                        varxpred = new double[100];
+                        System.out.println("Masukan x taksir: ");
+                        for(i=0;i<ncol;i++){
+                            varxpred[i]= scan.nextDouble();
+                        }
                         break;
                 }
             }
@@ -147,7 +147,6 @@ public class mainFile{
                 System.out.println("Apabila file tidak ditemukan, akan dibuat file kosong dan program diakhiri.");
                 System.out.print("Nama file: ");
                 filename = scan.next();
-                
                 try{
                     File infile = new File("test/input/" + filename + ".txt");
                     
@@ -180,6 +179,7 @@ public class mainFile{
                     break;
                 case 5:
                 //Gery
+                    solInstring= mainSolver.RegresiSolver();
                     break;
             }
 
@@ -197,5 +197,4 @@ public class mainFile{
             }
         }
     }
-
 }
