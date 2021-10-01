@@ -12,6 +12,7 @@ public class mainFile{
     public static double[] b_spl;
     public static int xfile = 0;
     public static double xpred;
+    public static double[] varxpred;
     public static boolean isInversexist=true;;
 
     public static int CheckInteger(int min, int max, String message){
@@ -469,49 +470,35 @@ public class mainFile{
         int i;
         int k=1;
         boolean isStillZero=true;
-        if(hasilReg[0]>0){
-            if(hasilReg[0]==1){
-                hasil+="x"+k; 
-            }else{
-                hasil+=hasilReg[0]+"x"+k;
-            }
+        if(hasilReg[0]!=0){
+            hasil+=hasilReg[0];
             isStillZero=false;
-        }else{
-            if(hasilReg[0]<0){
-                if(hasilReg[0]==-1){
-                    hasil+="-x"+k;
-                }else{
-                    hasil+=hasilReg[0]+"x"+k;
-                }
-                isStillZero=false;
-            }
         }
         for(i = 1; i < hasilReg.length; i++) {
             if(hasilReg[i]==0)continue;
-            k=i+1;
             if(isStillZero){
                 if(hasilReg[i]==1){
-                    hasil+="x"+k; 
+                    hasil+="x"+i; 
                 }else if(hasilReg[i]==-1){
-                    hasil+="-x"+k;
+                    hasil+="-x"+i;
                 }else{
-                    hasil+=hasilReg[i]+"x"+k;
+                    hasil+=hasilReg[i]+"x"+i;
                 }
                 isStillZero=false;
             }
             else if(hasilReg[i]>0){
                 if(hasilReg[i]==1){
-                    hasil+=" + x"+k; 
+                    hasil+=" + x"+i; 
                 }else{
-                    hasil+=" + "+hasilReg[i]+"x"+k;
+                    hasil+=" + "+hasilReg[i]+"x"+i;
                 }
             }else{
                 if(hasilReg[i]<0){
                     if(hasilReg[i]==-1){
-                        hasil+=" - x"+k;
+                        hasil+=" - x"+i;
                     }else{
                         double koef=hasilReg[i]*(-1d);
-                        hasil+=" - "+koef+"x"+k;
+                        hasil+=" - "+koef+"x"+i;
                     }
                 }
             }
@@ -521,7 +508,7 @@ public class mainFile{
                 resultRRR += hasilReg[0];
             }
             else {
-                resultRRR += hasilReg[i] * xpred;
+                resultRRR += hasilReg[i] * varxpred[i-1];
             }
         }
         hasil+="\n";
@@ -754,8 +741,11 @@ public class mainFile{
                         for(j = 0; j < nrow; j++) {
                             problem2[j] = scan.nextDouble();
                         }
-                        System.out.print("Masukan x taksir: ");
-                        xpred = scan.nextDouble();
+                        varxpred = new double[100];
+                        System.out.println("Masukan x taksir: ");
+                        for(i=0;i<ncol;i++){
+                            varxpred[i]= scan.nextDouble();
+                        }
                         break;
                 }
             }
