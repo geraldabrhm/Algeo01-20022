@@ -12,6 +12,7 @@ public class mainFile{
     public static double[] b_spl;
     public static int xfile = 0;
     public static double xpred;
+    public static boolean isInversexist=true;;
 
     public static int CheckInteger(int min, int max, String message){
         while (true){
@@ -376,10 +377,18 @@ public class mainFile{
         //Gery
         switch(getmethod){
             case 1:
-                solution = inversMatriks.inversebyGaussJordan(problem);
+                if(inversMatriks.DetbyKofaktor(problem)==0){
+                    isInversexist=false;
+                }else{
+                    solution = inversMatriks.inversebyGaussJordan(problem);
+                }
                 break;
             case 2:
-                solution = inversMatriks.inversebyKofaktor(problem);
+                if(inversMatriks.DetbyKofaktor(problem)==0){
+                    isInversexist=false;
+                }else{
+                    solution = inversMatriks.inversebyKofaktor(problem);
+                }
                 break;
         }
     }
@@ -553,17 +562,21 @@ public class mainFile{
     public static void outputFinalMatrix(int getoutput, String filename){
         switch(getoutput){
             case 1:
-                for(int i = 0; i < nrow; i ++){
-                    for(int j = 0; j < nrow; j ++){
-                        if((solution[i][j] < 1e-14 ) && (solution[i][j] > -1e-14)){
-                            solution[i][j] = 0;    
-                        }
-
-                        if(j == nrow -1){
-                            System.out.println(solution[i][j]);
-                        }else{
-                            System.out.print(solution[i][j]);
-                            System.out.print(" ");
+                if(!isInversexist){
+                    System.out.println("Matriks tidak memiliki invers");
+                }else{
+                    for(int i = 0; i < nrow; i ++){
+                        for(int j = 0; j < nrow; j ++){
+                            if((solution[i][j] < 1e-14 ) && (solution[i][j] > -1e-14)){
+                                solution[i][j] = 0;    
+                            }
+    
+                            if(j == nrow -1){
+                                System.out.println(solution[i][j]);
+                            }else{
+                                System.out.print(solution[i][j]);
+                                System.out.print(" ");
+                            }
                         }
                     }
                 }
@@ -581,13 +594,17 @@ public class mainFile{
                     }
 
                     FileWriter myWriter = new FileWriter("test/output/" + outName);
-                    for(int i = 0; i < nrow; i ++){
-                        for(int j = 0; j < nrow; j ++){
-                            String doublevalue = Double.toString(solution[i][j]);
-                            if(j == nrow -1){
-                                myWriter.write(doublevalue + "\n");
-                            }else{  
-                                myWriter.write(doublevalue + " ");
+                    if(!isInversexist){
+                        myWriter.write("Matriks tidak memiliki invers");
+                    }else{
+                        for(int i = 0; i < nrow; i ++){
+                            for(int j = 0; j < nrow; j ++){
+                                String doublevalue = Double.toString(solution[i][j]);
+                                if(j == nrow -1){
+                                    myWriter.write(doublevalue + "\n");
+                                }else{  
+                                    myWriter.write(doublevalue + " ");
+                                }
                             }
                         }
                     }
