@@ -27,12 +27,13 @@ Struktur repository dibuat dengan mengikuti panduan yang diberikan dengan sediki
 
 ## How to Use
 
-1)	Pertama pengguna akan diberikan menu utama (6 pilihan menu, pengguna bisa memilih SPL, determinan, matriks balikan, interpolasi polinom, regresi linear berganda, atau keluar dari program)
-2)	Jika pengguna memilih SPL misalnya, pengguna akan kembali diprompt untuk memlih metode yang ingin dipakai
-3)	Program kemudian menampilkan dua opsi input, dapat berupa file atau masukan dari keyboard
-4)	Program akan memprompting user untuk memasukan baris, kolom, dan matriks dengan format tergantung dengan apa yang dicari dan dengan metode apa mencarinya
-5)	User akan diberi 2 pilihan untuk menerima output dari terminal atau ke file
-6)  Setelah selesai pada aksi sekuensial tertentu, pengguna akan kembali menu utama kembali hingga akhirnya pengguna  keluar dari program dengan memasukan nomor 6 pada servis 
+1)	Program dapat dijalankan melalui _command prompt_ dengan menginput **java -jar MainProgram.jar**
+2)	Setelah itu, pengguna akan diberikan menu utama (6 pilihan menu, pengguna bisa memilih SPL, determinan, matriks balikan, interpolasi polinom, regresi linear berganda, atau keluar dari program)
+3)	Jika pengguna memilih SPL misalnya, pengguna akan kembali diprompt untuk memlih metode yang ingin dipakai
+4)	Program kemudian menampilkan dua opsi input, dapat berupa file atau masukan dari keyboard
+5)	Program akan memprompting user untuk memasukan baris, kolom, dan matriks dengan format tergantung dengan apa yang dicari dan dengan metode apa mencarinya
+6)	User akan diberi 2 pilihan untuk menerima output dari terminal atau ke file
+7)  Setelah selesai pada aksi sekuensial tertentu, pengguna akan kembali menu utama kembali hingga akhirnya pengguna  keluar dari program dengan memasukan nomor 6 pada servis 
 
 Beberapa catatan tentang program
 
