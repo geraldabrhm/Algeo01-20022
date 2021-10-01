@@ -22,8 +22,7 @@ Struktur repository dibuat dengan mengikuti panduan yang diberikan dengan sediki
 3. Folder *test*, akan berisi 2 folder lagi
     1. Input, folder yang berisi file .txt sebagai input program
     2. Output, folder yang berisi file .txt sebagai output apabila dituliskan dalam file.
-4. Folder *lib*, berisi file *.jar* yang berupa library yang kami buat untuk menyelesaikan persoalan aljabar linier.
-5. Folder *doc*, berisi laporan
+4. Folder *doc*, berisi laporan
 
 ## How to Use
 
