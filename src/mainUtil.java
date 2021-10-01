@@ -25,7 +25,6 @@ public class mainUtil {
         Random random = new Random();
         mainFile.xpred = min + (max - min) * random.nextDouble();
     }
-
     
     public static void inputFile(File input, int service) throws FileNotFoundException{
         Scanner scanfile = new Scanner(input);
@@ -117,7 +116,25 @@ public class mainUtil {
                 mainUtil.generateXPred(rangemax, rangemin);
                 break;
             case 5:
-            //Gery
+                mainFile.nrow = scanfile.nextInt();
+                mainFile.ncol = scanfile.nextInt();
+                
+                mainFile.problem = new double[mainFile.nrow][mainFile.ncol];
+                for(int i = 0; i < mainFile.nrow; i++) {
+                    for(int j = 0; j < mainFile.ncol; j++) {
+                        mainFile.problem[i][j] = scanfile.nextDouble();
+                    }
+                }
+                mainFile.problem2 = new double[mainFile.nrow];
+                
+                for(int j = 0; j < mainFile.nrow; j++) {
+                    mainFile.problem2[j] = scanfile.nextDouble();
+                }
+                mainFile.varxpred = new double[mainFile.ncol];
+                
+                for(int i=0;i < mainFile.ncol; i++){
+                    mainFile.varxpred[i]= scanfile.nextDouble();
+                }
                 break;
         }
     }

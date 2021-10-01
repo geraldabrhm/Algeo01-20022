@@ -71,8 +71,9 @@ public class mainFile{
                     System.exit(0);
             }
             if(getinput == 1){
+                //Inpur dari terminal
                 switch(getservice){
-                    // Asumsi masukan m n --> nrow ncol
+                    
                     case 1:
                         nrow = scan.nextInt();
                         ncol = scan.nextInt();
@@ -134,7 +135,7 @@ public class mainFile{
                         for(j = 0; j < nrow; j++) {
                             problem2[j] = scan.nextDouble();
                         }
-                        varxpred = new double[100];
+                        varxpred = new double[ncol];
                         System.out.println("Masukan x taksir: ");
                         for(i=0;i<ncol;i++){
                             varxpred[i]= scan.nextDouble();
